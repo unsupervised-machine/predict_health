@@ -1,0 +1,13 @@
+All data is numeric (floats and ints)
+
+Row count, column count
+    rows, 1177
+    columns, 51
+Considerable missing data for following columns:
+    BMI, 215
+    Lactic acid, 229
+    PCO2, 294
+    Notes: 
+        Perhaps the people without BMI were unable to be weighed? Too unhealthy? Discharged too fast?
+
+

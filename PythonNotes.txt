@@ -1,0 +1,145 @@
+# Python Notes:
+https://medium.com/gitconnected/20-pandas-functions-for-80-of-your-data-science-tasks-b610c8bfe63c
+    - Visual Studio Code
+        Mac OS
+            Hotkeys
+                Change file
+                    Ctrl + tab
+            - Juypter Notebooks
+                Open a python console
+                    1. Go to terminal
+                    2. Type python
+                    3. Use as python console
+                Execute Code
+                    Ctrl + Enter
+                Execute Code and Create New Code Block Below
+                    Shift + Enter
+                Format Cell
+                    Right Click + Format Cell
+    - Pandas
+        Data Exploration
+            General Parameters
+                Show all columns when viewing data
+                    pd.set_option('display.max_columns', None)
+                Show all rows when viewing data (usually don't do this)
+                    pd.set_option('display.max_rows', None)
+                Show matploptlib plots while in notebook
+                    import matplotlib.pyplot as plt
+                    %matplotlib inline
+            Viewing DataFrame
+                View entire dataframeName (truncated if max_columns is not set to None)
+                    dataframeName
+                Create list of all column names of data frame.
+                    dataframe.columns
+            Finding Null Values
+                Sum of null values for each column
+                    dataframe.isna().sum()
+                Find all the rows where column_name is null
+                    dataframe[dataframe['column_name'].isna()]
+            Get Summary Statistics for numerical columns of dataframe
+                dataframe.describe()
+            Get data types of column of dataframe
+                dataframe.dtypes
+            Create Histogram
+                dataframe.hist(bins =int, figsize = (int, int))
+            Conditional Filter dataframe
+                subset_dataframe = dataframe[['column_name']>50]    
+            Create Scatter plot of two variables from a dataframe
+                dataframe.plot(kind='scatter', x='column_A', y='column_B')
+            Get count of each value in column
+                dataframe['column_name'].value_counts()
+            Create bar plot of dataframe value counts
+                pd.Dataframe(dataframe_name['column_name'].value_counts()).plot(kind='bar')
+            Get value count for each column in dataframe
+                dataframe.apply(pd.value_counts())
+        Data Cleaning
+            Filling NA values
+                Sum of null values for each column
+                    dataframe.isna().sum()
+                Find all the rows where column_name is null
+                    dataframe[dataframe['column_name'].isna()]
+                Mask
+                    A mask is used to specify the rows we want to make changes to before editing a dataframe 
+                    Replace NaN values in a column with desired value
+                        1. Create mask
+                            mask = ((dataframe['column_a']=='value_a' | (dataframe['column_a']=='value_b'))
+                        2. Fill the missing values 
+                            dataframe.loc[mask, 'column_c'] = dataframe.loc[mask, 'column_c'].fillna('desired_value')
+                    Replace NaN values for entire dataframe
+                        1. Create mask 
+                            mask = ((dataframe['column_a']=='value_a' | (dataframe['column_a']=='value_b'))
+                        2. Fill missing values
+                            dataframe.loc[mask] = dataframe.loc[mask].fillna('desired_value')
+                Without Mask
+                    Without using a mask, not being too precise with which NA values we are exchanging for what
+                        dataframe['column_c'].fillna('desired_value', inplace=True)
+            Dealing with outliers
+                Finding Outliers
+                    Single column
+                        outliers = dataframe[dataframe['column_a']>60]
+                    Multiple Conditions
+                        outliers = dataframe[(dataframe['column_a']>60) | (dataframe['column_b']>60)]
+                    Imputing Outliers with group means
+                        https://stackoverflow.com/questions/27638743/pandas-replace-outliers-with-groupby-mean
+                    Imputing Outliers with 1st and 3rd Quartile
+                        1. Find quartile values
+                        stats = dataframe.groupby('column_a')['column_b'].describe().reset_index()[['column_a', '25%', '75%']]
+                        stats
+                        2. Join to main dataframe
+                        dataframe.merge(stats, on='column_a', how='left')
+                        3. Replace values lower than 1st quartile and greater than 3rd quartile
+                        mask = dataframe['column_a']<dataframe['25%']
+                        dataframe.loc[mask, 'column_a'] = dataframe['25%']
+        Subsetting Dataframe
+            df.iloc[rowIndex, columnIndex]
+                can use slice indexers ':'
+                E.g. first 2 rows and 5 column
+                    df.iloc[0:2, 0:5]
+        Grouping
+            Transformations
+                datatframe.transform('function to apply to every element of the dataframe')
+                dataframe.groupby('column_to_group_by')['column_to_transform'].transform('function')
+            Imputation
+                Replace every missing value in columnA with its groups mean/median
+                dataframe['columnA'] = dataframe['columnA'].fillna(dataframe.groupby('columnB')['columnA'].mean())
+    - File Manipulation
+        Move data to a different directory
+            os.rename('old_file_path', 'new_file_path')
+        Relative file path in project
+            use './'
+            Example pd.read_csv('./file_name')
+    - Pandas Profiling
+        Create automatic reports of data analysis to jump start project
+    Efficent Pandas Coding
+         Data Filtering/Subsetting
+            subset = dataframe.query('columnA > 30 and columnB > 10)
+         @ Symbol for complex queries
+            Example:
+                df = pd.read_csv('sales_data.csv')
+                product_category = 'Electronics'
+                start_date = '2022-01-01'
+                end_date = '2022-03-01'
+                min_sales_amount = 1000
+                min_quantity = 10
+                #Use the @ command
+                subset = df.query('product_category == @product_category and @start_date <= order_date <= @end_date and (sales_amount >= @min_sales_amount or quantity >= @min_quantity)') 
+        Creating copies of dataframes so that changes don't effect original dataframe
+            new_dataframe = dataframe.loc[dataframe['columnA'] > 30, ['columnB', 'columnC']].copy()
+        Chain commands
+            Example:
+                # Create a sample DataFrame
+                data = {'name': ['Alice', 'Bob', 'Charlie', 'David', 'Emily'],
+                        'age': [25, 32, 18, 47, 29],
+                        'gender': ['F', 'M', 'M', 'M', 'F']}
+                df = pd.DataFrame(data)
+                # Apply multiple transformations in a single statement
+                new_df = (df
+                        .loc[df['age'] > 30, ['name', 'age']]
+                        .copy()
+                        .assign(age_plus_5=lambda x: x['age'] + 5))
+                # Print the new DataFrame
+                print(new_df)
+        
+
+                    
+
