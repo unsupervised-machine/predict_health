@@ -1,0 +1,39 @@
+
+Top skills:
+    Data Side
+    1.  Pandas (my new SQL) for data munging
+        this is what I would do in sql, this is how I do it in pandas
+    2. Spark/Data Bricks language, open source, 
+        Spark is good for big data
+        Process big data
+        Interface with Py Spark
+            Pandas interface
+            SQL interface
+        Mess around with Scala language.
+    3. Get savvy with git
+    4. Numpy
+        Familiarize yourself with this (base package of R equivalent just need to know how it works)
+
+
+    Modeling Side:
+    1. Sci-kit learn ( data scientist tool chest,)
+        Build various models using same data set 
+            Random Forest , SVM, Neural Net, etc. (like 10 of them)
+    2. XGBoost (state of the art for gradient boosted models)
+        Run vanilla XGBoost model
+        Run a model on a GPU or a TPU or distributed GPU
+    3. Tensor Flow (Worry about these later)
+    4. PyTorch (Worry about these later)
+    
+Algorithms to make:
+https://www.simplilearn.com/10-algorithms-machine-learning-engineers-need-to-know-article
+    1. Linear regression
+    2. Logistic regression
+    3. Decision tree
+    4. SVM algorithm
+    5. Naive Bayes algorithm
+    6. KNN algorithm
+    7. K-means
+    8. Random forest algorithm
+    9. Dimensionality reduction algorithms
+    10. Gradient boosting algorithm and AdaBoosting algorithm
